@@ -1,0 +1,21 @@
+{
+  "trivia_questions": [
+    {"difficulty":"easy","question":"What is the capital of France?","options":["Berlin","Paris","Madrid","Rome"],"correct_answer":"B","explanation":"Paris has been France's capital and a major cultural centre for centuries."},
+    {"difficulty":"easy","question":"Which planet is known as the Red Planet?","options":["Mars","Venus","Jupiter","Mercury"],"correct_answer":"A","explanation":"Iron minerals in Martian soil oxidise, giving Mars its reddish colour."},
+    {"difficulty":"easy","question":"How many sides does a hexagon have?","options":["Five","Six","Seven","Eight"],"correct_answer":"B","explanation":"The prefix hex- means six, so a hexagon has six sides."},
+    {"difficulty":"easy","question":"Which gas do plants absorb during photosynthesis?","options":["Oxygen","Hydrogen","Carbon dioxide","Helium"],"correct_answer":"C","explanation":"Plants use carbon dioxide and water to produce glucose during photosynthesis."},
+    {"difficulty":"easy","question":"Which ocean is the largest?","options":["Atlantic","Indian","Arctic","Pacific"],"correct_answer":"D","explanation":"The Pacific Ocean covers more area than all Earth's land combined."},
+
+    {"difficulty":"medium","question":"Which element has the chemical symbol Fe?","options":["Fluorine","Iron","Francium","Fermium"],"correct_answer":"B","explanation":"Fe comes from ferrum, the Latin word for iron."},
+    {"difficulty":"medium","question":"Who wrote The Odyssey?","options":["Homer","Virgil","Plato","Sophocles"],"correct_answer":"A","explanation":"The ancient Greek epic The Odyssey is traditionally attributed to Homer."},
+    {"difficulty":"medium","question":"What is the process by which liquid water becomes vapour?","options":["Condensation","Precipitation","Evaporation","Freezing"],"correct_answer":"C","explanation":"Evaporation happens when energetic surface molecules escape into the gas phase."},
+    {"difficulty":"medium","question":"Which layer of Earth is liquid and helps generate its magnetic field?","options":["Crust","Mantle","Outer core","Inner core"],"correct_answer":"C","explanation":"Movement of liquid iron and nickel in the outer core drives Earth's magnetic field."},
+    {"difficulty":"medium","question":"In computing, what does CPU stand for?","options":["Central Processing Unit","Computer Primary Utility","Core Program User","Central Power Unit"],"correct_answer":"A","explanation":"The Central Processing Unit executes instructions and coordinates computer operations."},
+
+    {"difficulty":"hard","question":"Which scientist formulated the uncertainty principle?","options":["Niels Bohr","Werner Heisenberg","Erwin Schrödinger","Max Planck"],"correct_answer":"B","explanation":"Heisenberg's principle limits how precisely complementary properties can be known together."},
+    {"difficulty":"hard","question":"What is the longest cranial nerve?","options":["Optic nerve","Trigeminal nerve","Vagus nerve","Facial nerve"],"correct_answer":"C","explanation":"The vagus nerve travels from the brainstem into the chest and abdomen."},
+    {"difficulty":"hard","question":"Which treaty formally ended World War I between Germany and the Allies?","options":["Treaty of Utrecht","Treaty of Versailles","Treaty of Paris","Treaty of Tordesillas"],"correct_answer":"B","explanation":"The Treaty of Versailles was signed in 1919 and imposed terms on Germany."},
+    {"difficulty":"hard","question":"What does the astronomical unit primarily measure?","options":["Star brightness","The Earth–Sun distance","Planet mass","Light frequency"],"correct_answer":"B","explanation":"One astronomical unit is approximately the average distance from Earth to the Sun."},
+    {"difficulty":"hard","question":"Which language family includes Hindi, English, and Spanish?","options":["Sino-Tibetan","Afro-Asiatic","Indo-European","Austronesian"],"correct_answer":"C","explanation":"All three descend from branches of the large Indo-European language family."}
+  ]
+}

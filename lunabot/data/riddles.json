@@ -1,0 +1,18 @@
+{
+  "riddles": [
+    {"difficulty":"easy","riddle":"What has hands but cannot clap?","answer":"clock","explanation":"A clock has hour and minute hands, but they are not human hands."},
+    {"difficulty":"easy","riddle":"What gets wetter the more it dries?","answer":"towel","explanation":"A towel absorbs water while it dries another object."},
+    {"difficulty":"easy","riddle":"What can you catch but not throw?","answer":"cold","explanation":"Catch is used figuratively when someone becomes ill with a cold."},
+    {"difficulty":"easy","riddle":"What has many keys but opens no locks?","answer":"piano","explanation":"A piano's keys create musical notes rather than opening locks."},
+
+    {"difficulty":"medium","riddle":"I speak without a mouth and hear without ears. I have no body, but come alive when sound calls. What am I?","answer":"echo","explanation":"An echo repeats sound without having a body, mouth, or ears."},
+    {"difficulty":"medium","riddle":"I have cities but no houses, forests but no trees, and water but no fish. What am I?","answer":"map","explanation":"A map represents cities, forests, and water with symbols rather than real objects."},
+    {"difficulty":"medium","riddle":"What can travel around the world while staying in one corner?","answer":"stamp","explanation":"A postage stamp stays on an envelope's corner while the envelope travels."},
+    {"difficulty":"medium","riddle":"The more you take, the more you leave behind. What are they?","answer":"footsteps","accepted_answers":["steps"],"explanation":"Every step you take leaves another footprint or footstep behind."},
+
+    {"difficulty":"hard","riddle":"I am taken from a mine and enclosed in wood. I am never released, yet nearly everyone uses me. What am I?","answer":"pencil lead","accepted_answers":["graphite","pencil"],"explanation":"Graphite is mined and enclosed inside the wooden body of a pencil."},
+    {"difficulty":"hard","riddle":"A word I know has six letters. Remove one letter and twelve remains. What is it?","answer":"dozens","explanation":"Removing the letter s from dozens leaves dozen, which means twelve."},
+    {"difficulty":"hard","riddle":"Forward I am heavy, but backward I am not. What am I?","answer":"ton","explanation":"Ton is a heavy unit; written backward it becomes not."},
+    {"difficulty":"hard","riddle":"What English word keeps the same pronunciation after four of its five letters are removed?","answer":"queue","explanation":"Queue is pronounced like the letter Q; removing ueue leaves Q with the same sound."}
+  ]
+}

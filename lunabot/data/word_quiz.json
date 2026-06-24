@@ -1,0 +1,21 @@
+{
+  "word_quiz_questions": [
+    {"difficulty":"easy","question":"Which word means very happy?","options":["Joyful","Narrow","Silent","Rough"],"correct_answer":"A","explanation":"Joyful means feeling, showing, or causing great happiness."},
+    {"difficulty":"easy","question":"Which word means to look at something carefully?","options":["Ignore","Observe","Scatter","Borrow"],"correct_answer":"B","explanation":"Observe means to watch or examine something attentively."},
+    {"difficulty":"easy","question":"Which word is closest in meaning to tiny?","options":["Enormous","Ancient","Small","Noisy"],"correct_answer":"C","explanation":"Tiny and small both describe something with little size."},
+    {"difficulty":"easy","question":"What does fragile mean?","options":["Easily broken","Very expensive","Brightly coloured","Hard to find"],"correct_answer":"A","explanation":"Fragile describes something delicate that can be damaged easily."},
+    {"difficulty":"easy","question":"Which word means calm and peaceful?","options":["Fierce","Serene","Crowded","Swift"],"correct_answer":"B","explanation":"Serene means calm, peaceful, and untroubled."},
+
+    {"difficulty":"medium","question":"What does reluctant mean?","options":["Unwilling or hesitant","Extremely cheerful","Ready to argue","Easy to understand"],"correct_answer":"A","explanation":"Reluctant means unwilling and therefore slow or hesitant to act."},
+    {"difficulty":"medium","question":"Which word means able to recover quickly from difficulty?","options":["Vulnerable","Resilient","Careless","Ordinary"],"correct_answer":"B","explanation":"Resilient people or things recover well after stress or difficulty."},
+    {"difficulty":"medium","question":"What is an ambiguous statement?","options":["A statement with more than one possible meaning","A proven fact","A rude statement","A very long statement"],"correct_answer":"A","explanation":"Ambiguous language is unclear because it permits multiple interpretations."},
+    {"difficulty":"medium","question":"Which word best completes: Her explanation was so ___ that everyone understood?","options":["Obscure","Lucid","Tedious","Random"],"correct_answer":"B","explanation":"Lucid means expressed clearly and easy to understand."},
+    {"difficulty":"medium","question":"What does meticulous mean?","options":["Very careful about details","Quick but inaccurate","Naturally talented","Unable to decide"],"correct_answer":"A","explanation":"Meticulous describes someone who pays precise attention to every detail."},
+
+    {"difficulty":"hard","question":"What does ephemeral mean?","options":["Lasting a very short time","Impossible to explain","Existing everywhere","Growing rapidly"],"correct_answer":"A","explanation":"Ephemeral describes something brief or short-lived, such as a mayfly's life."},
+    {"difficulty":"hard","question":"Which word means using few words while still expressing much?","options":["Verbose","Laconic","Erratic","Superficial"],"correct_answer":"B","explanation":"Laconic speech uses very few words, sometimes seeming abrupt."},
+    {"difficulty":"hard","question":"What is a ubiquitous technology?","options":["One found almost everywhere","One that is obsolete","One kept secret","One that is unreliable"],"correct_answer":"A","explanation":"Ubiquitous means present, appearing, or found everywhere."},
+    {"difficulty":"hard","question":"Which word describes a person who doubts accepted claims?","options":["Sceptic","Prodigy","Mediator","Optimist"],"correct_answer":"A","explanation":"A sceptic questions whether claims are true instead of accepting them immediately."},
+    {"difficulty":"hard","question":"What does ameliorate mean?","options":["To make a bad situation better","To copy exactly","To make permanent","To criticise publicly"],"correct_answer":"A","explanation":"Ameliorate means to improve something unpleasant or deficient."}
+  ]
+}
