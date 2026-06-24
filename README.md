@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LunaBot
 
 Luna is a sweet Discord helper bot that uses cherry blossoms, friendly Gen Z tone, word meaning lookup, and fun English games.
@@ -288,3 +289,6 @@ luna quote
 luna joke
 luna search What is photosynthesis?
 ```
+=======
+# Luna
+>>>>>>> 86f27aec1b8fe7e4cd35fee4fba44f931adff082
