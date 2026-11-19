@@ -4,6 +4,7 @@ import discord
 
 from ..core.base_game import BaseGame
 from ..sessions.game_session import GameSession
+from ..utils.text_utils import format_winner_line
 from .difficulty import level_label, normalize_difficulty
 
 
@@ -36,7 +37,10 @@ class WordQuizGame(BaseGame):
         if index >= len(questions):
             session.state["finished"] = True
             score = session.score.get(session.player_ids[0], 0)
-            await channel.send(f"🌸 Word Quiz complete! Score: **{score}/{len(questions)}**")
+            await channel.send(
+                f"🌸 Word Quiz complete! Score: **{score}/{len(questions)}**\n"
+                f"{format_winner_line(session.score)}"
+            )
             return
         question = questions[index]
         session.state["current_question_data"] = question

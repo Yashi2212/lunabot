@@ -16,9 +16,9 @@ A **fully functional, production-ready game engine** with 7 games, session manag
    - Simple and fun
 
 2. **Riddle** (`games/riddle.py`)
-   - Solve a mystery riddle
-   - One-shot answer
-   - Database of 8+ riddles
+   - Multiplayer riddle race
+   - One fixed round of 10: 2 Difficult, 3 Moderate, 5 Easy
+   - Highest score wins; a solo player wins automatically
 
 3. **Escape Room** (`games/escape.py`)
    - Explore a locked room
@@ -105,11 +105,7 @@ lunabot/
 │   ├── storyteller.py      # Storyteller
 │   ├── would_you_rather.py # Would You Rather
 │   └── __init__.py
-├── data/
-│   ├── riddles.json
-│   ├── trivia.json
-│   ├── quiz_questions.json
-│   └── would_you_rather.json
+├── data/                   # Legacy empty schemas; not used as question banks
 ├── utils/
 │   ├── text_utils.py
 │   ├── validation.py
@@ -299,10 +295,8 @@ session = game_manager.create_session(
     player_id=user_id
 )
 
-# Load questions
-with open("data/trivia.json") as f:
-    data = json.load(f)
-session.state["questions"] = data["trivia_questions"]
+# The command layer requests and validates a fresh AI question bank.
+# It does not load a static question file or start with a partial bank.
 
 # Start
 game = game_manager.get_game("trivia")
@@ -363,7 +357,7 @@ Two comprehensive guides included:
 | Game | Type | Players | Duration | Complexity |
 |------|------|---------|----------|-----------|
 | Tea Challenge | Single | 1 | 2-5 min | Low |
-| Riddle | Single | 1 | 1-3 min | Low |
+| Riddle | Multi | 1-5 | 1-5 min | Low |
 | Escape Room | Single | 1 | 5-10 min | Medium |
 | Trivia | Multi | 2-5 | 5-10 min | Low |
 | Quiz | Multi | 2-5 | 10-15 min | Low |

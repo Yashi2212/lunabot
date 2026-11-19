@@ -4,7 +4,6 @@ import re
 
 import discord
 
-from ..content_rotation import content_rotation
 from ..core.base_game import BaseGame
 from ..sessions.game_session import GameSession
 from .difficulty import level_label, normalize_difficulty
@@ -16,31 +15,17 @@ class StorytellerGame(BaseGame):
     max_players = 5
     max_turns = 10
 
-    OPENINGS = {
-        "easy": [
-            "A tiny lantern appeared outside the school, glowing even in daylight.",
-            "The library cat dropped a silver key beside the newest student.",
-            "Every flower in the garden suddenly began whispering the same name.",
-        ],
-        "medium": [
-            "At midnight, the town's shadows detached themselves and queued at the railway station.",
-            "The apprentice mapmaker discovered an island that moved whenever somebody told a lie.",
-            "A forgotten radio began broadcasting tomorrow's weather—and one impossible warning.",
-        ],
-        "hard": [
-            "Memory had become currency, and by sunrise the richest woman alive could no longer remember her own face.",
-            "The city outlawed silence, yet beneath its loudest square an ancient quiet was beginning to wake.",
-            "Each time the historian corrected the archive, reality politely rewrote itself around the footnote.",
-        ],
-    }
-
+    # Openings are generated per game by the AI; no embedded prompt bank.
     async def start(self, session: GameSession, ctx) -> None:
         difficulty = normalize_difficulty(session.state.get("difficulty"))
         opening = session.state.get("opening_prompt")
         if not isinstance(opening, str) or not opening.strip():
-            opening = content_rotation.take(
-                f"story:{difficulty}", self.OPENINGS[difficulty]
-            )[0]
+            session.state["finished"] = True
+            await ctx.reply(
+                "🌙 Storyteller needs a fresh AI opening and could not start.",
+                mention_author=False,
+            )
+            return
         session.state.update(
             story=[opening.strip()],
             opening_prompt=opening.strip(),

@@ -1,21 +1,3 @@
 {
-  "quiz_questions": [
-    {"difficulty":"easy","question":"What is the capital of Japan?","options":["Seoul","Tokyo","Beijing","Bangkok"],"correct_answer":"B","explanation":"Tokyo is Japan's capital and its most populous metropolitan area."},
-    {"difficulty":"easy","question":"What is the smallest prime number?","options":["0","1","2","3"],"correct_answer":"C","explanation":"Two is the smallest prime and the only even prime number."},
-    {"difficulty":"easy","question":"Who wrote Romeo and Juliet?","options":["Dickens","Shakespeare","Austen","Twain"],"correct_answer":"B","explanation":"William Shakespeare wrote the tragedy Romeo and Juliet in the 1590s."},
-    {"difficulty":"easy","question":"What is the chemical symbol for gold?","options":["Go","Gd","Au","Ag"],"correct_answer":"C","explanation":"Au comes from aurum, the Latin word for gold."},
-    {"difficulty":"easy","question":"How many strings does a standard violin have?","options":["Four","Five","Six","Eight"],"correct_answer":"A","explanation":"A standard violin has four strings tuned to G, D, A, and E."},
-
-    {"difficulty":"medium","question":"In which year did the Titanic sink?","options":["1912","1920","1905","1915"],"correct_answer":"A","explanation":"Titanic struck an iceberg and sank during its maiden voyage in April 1912."},
-    {"difficulty":"medium","question":"Which organ produces insulin?","options":["Liver","Pancreas","Kidney","Spleen"],"correct_answer":"B","explanation":"Beta cells in the pancreas produce insulin to help regulate blood glucose."},
-    {"difficulty":"medium","question":"Which river flows through Egypt into the Mediterranean Sea?","options":["Amazon","Nile","Yangtze","Mississippi"],"correct_answer":"B","explanation":"The Nile flows north through Egypt before reaching the Mediterranean."},
-    {"difficulty":"medium","question":"What is 15% of 200?","options":["15","20","30","40"],"correct_answer":"C","explanation":"Ten percent is 20 and five percent is 10, so fifteen percent is 30."},
-    {"difficulty":"medium","question":"Which literary device compares two things using like or as?","options":["Metaphor","Simile","Alliteration","Irony"],"correct_answer":"B","explanation":"A simile makes an explicit comparison using words such as like or as."},
-
-    {"difficulty":"hard","question":"What is the derivative of x² with respect to x?","options":["x","2x","x³","2"],"correct_answer":"B","explanation":"The power rule gives d(xⁿ)/dx = n·xⁿ⁻¹, so d(x²)/dx = 2x."},
-    {"difficulty":"hard","question":"Which part of a neuron usually receives signals?","options":["Axon","Myelin sheath","Dendrite","Synaptic vesicle"],"correct_answer":"C","explanation":"Dendrites branch from the cell body and receive signals from other neurons."},
-    {"difficulty":"hard","question":"What type of bond shares electron pairs between atoms?","options":["Ionic","Covalent","Metallic","Hydrogen"],"correct_answer":"B","explanation":"Covalent bonds form when atoms share one or more pairs of electrons."},
-    {"difficulty":"hard","question":"Which economic term means a sustained rise in general price levels?","options":["Deflation","Inflation","Liquidity","Arbitrage"],"correct_answer":"B","explanation":"Inflation reduces purchasing power as the overall price level rises over time."},
-    {"difficulty":"hard","question":"In grammar, what is a word that modifies a verb, adjective, or another adverb?","options":["Pronoun","Conjunction","Adverb","Preposition"],"correct_answer":"C","explanation":"Adverbs commonly describe manner, time, place, frequency, or degree."}
-  ]
+  "quiz_questions": []
 }

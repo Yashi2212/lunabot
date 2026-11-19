@@ -68,7 +68,7 @@ class GameManager:
         if session.state.get("finished", False):
             self.delete_session(channel_id)
             return True
-        
+
         # Lobby chat must not be swallowed by the game router. Only Luna
         # commands such as join/begin/stop interact with a lobby.
         if session.state.get("lobby", False):
@@ -100,6 +100,67 @@ class GameManager:
                 )
             except discord.HTTPException:
                 pass
+            return True
+
+    async def handle_reaction(self, payload, bot) -> bool:
+        """Route a player's reaction to a game that supports reaction answers."""
+        if bot.user is None or payload.user_id == bot.user.id:
+            return False
+
+        channel_id = payload.channel_id
+        session = self.session_manager.get_session(channel_id)
+        if not session:
+            return False
+        if session.state.get("lobby", False):
+            if str(payload.emoji) != "✅":
+                return False
+            if payload.message_id != session.state.get("lobby_message_id"):
+                return False
+            game = self.get_game(session.game_type)
+            if not game or len(session.player_ids) >= game.max_players:
+                return True
+            if payload.user_id in session.player_ids:
+                return True
+            session.add_player(payload.user_id)
+            session.update_activity()
+            channel = bot.get_channel(channel_id)
+            if channel:
+                try:
+                    await channel.send(
+                        f"<@{payload.user_id}> joined! **{len(session.player_ids)}/{game.max_players}**"
+                    )
+                except discord.HTTPException:
+                    pass
+            return True
+        if not session.is_player_valid(payload.user_id):
+            return False
+        if session.state.get("finished", False):
+            self.delete_session(channel_id)
+            return True
+
+        game = self.get_game(session.game_type)
+        handler = getattr(game, "handle_reaction", None) if game else None
+        if handler is None:
+            return False
+
+        session.update_activity()
+        try:
+            await handler(session, payload, bot)
+            if session.state.get("finished", False):
+                self.delete_session(channel_id)
+            return True
+        except Exception as exc:
+            print(f"Error in {session.game_type} reaction handler: {exc}")
+            self.delete_session(channel_id)
+            channel = bot.get_channel(channel_id)
+            if channel:
+                try:
+                    await channel.send(
+                        "That game hit an unexpected reaction error and was safely stopped. "
+                        "You can start a fresh game now."
+                    )
+                except discord.HTTPException:
+                    pass
             return True
     
     def create_session(self, channel_id: int, guild_id: int, game_type: str, player_id: int) -> GameSession:

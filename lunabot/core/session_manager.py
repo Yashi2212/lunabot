@@ -28,7 +28,10 @@ class SessionManager:
         Raises:
             RuntimeError: If game already running in channel
         """
-        if channel_id in self.active_sessions:
+        existing = self.active_sessions.get(channel_id)
+        if existing and existing.state.get("finished", False):
+            self.delete_session(channel_id)
+        elif existing:
             raise RuntimeError(f"A game is already running in channel {channel_id}")
         
         session = GameSession(

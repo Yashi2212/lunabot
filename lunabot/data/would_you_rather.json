@@ -1,21 +1,3 @@
 {
-  "would_you_rather_questions": [
-    {"difficulty":"easy","option_a":"Fly like a bird","option_b":"Swim like a fish","learning_focus":"Give one reason using because; practise clear cause-and-effect language."},
-    {"difficulty":"easy","option_a":"Talk to animals","option_b":"Speak every human language","learning_focus":"Compare communication across species and cultures."},
-    {"difficulty":"easy","option_a":"Live in a castle","option_b":"Live on a spaceship","learning_focus":"Use descriptive adjectives to explain which home would suit you."},
-    {"difficulty":"easy","option_a":"Have super strength","option_b":"Have super speed","learning_focus":"Compare benefits with the structure 'whereas'."},
-    {"difficulty":"easy","option_a":"Always have perfect weather","option_b":"Never need to sleep","learning_focus":"Identify one benefit and one drawback of your choice."},
-
-    {"difficulty":"medium","option_a":"Always speak the truth","option_b":"Always be believed","learning_focus":"Discuss how honesty, trust, and persuasion are different."},
-    {"difficulty":"medium","option_a":"Time travel to the past","option_b":"See the future","learning_focus":"Use a conditional sentence: 'If I could…, I would…'."},
-    {"difficulty":"medium","option_a":"Live without music","option_b":"Live without films","learning_focus":"Support an opinion with an example from your experience."},
-    {"difficulty":"medium","option_a":"Have privacy online","option_b":"Have every service perfectly personalised","learning_focus":"Explore the trade-off between privacy and convenience."},
-    {"difficulty":"medium","option_a":"Work four long days","option_b":"Work five shorter days","learning_focus":"Compare schedules using productivity and wellbeing vocabulary."},
-
-    {"difficulty":"hard","option_a":"Erase one painful memory","option_b":"Keep every memory but understand it fully","learning_focus":"Reason about identity, growth, and the value of difficult experiences."},
-    {"difficulty":"hard","option_a":"Guarantee equality of opportunity","option_b":"Guarantee equality of outcome","learning_focus":"Define both forms of equality before defending your choice."},
-    {"difficulty":"hard","option_a":"Let an algorithm make fairer decisions","option_b":"Keep human judgement with known bias","learning_focus":"Evaluate accountability, transparency, and bias."},
-    {"difficulty":"hard","option_a":"Know every consequence before acting","option_b":"Remain free to act without certainty","learning_focus":"Discuss whether perfect knowledge strengthens or limits free choice."},
-    {"difficulty":"hard","option_a":"Preserve a historic building","option_b":"Replace it with affordable housing","learning_focus":"Balance cultural heritage against urgent social needs."}
-  ]
+  "would_you_rather_questions": []
 }

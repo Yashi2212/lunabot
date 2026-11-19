@@ -48,6 +48,9 @@ class TimeoutManager:
             session = self.game_manager.get_session(channel_id)
             if not session:
                 continue
+            if session.state.get("finished", False):
+                self.game_manager.delete_session(channel_id)
+                continue
             try:
                 game = self.game_manager.get_game(session.game_type)
                 if game:

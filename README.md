@@ -1,7 +1,12 @@
-<<<<<<< HEAD
 # LunaBot
 
 Luna is a sweet Discord helper bot that uses cherry blossoms, friendly Gen Z tone, word meaning lookup, and fun English games.
+
+## Access Luna
+
+[Add Luna to your Discord server](https://discord.com/oauth2/authorize?client_id=1518678773229424804)
+
+Open the link, choose your server, and authorize Luna. Once Luna is online, type `luna help` in your server to get started.
 
 ## Get Your Discord Bot Token
 
@@ -23,7 +28,7 @@ Luna is a sweet Discord helper bot that uses cherry blossoms, friendly Gen Z ton
 Luna needs **minimal, safe permissions** to function well:
 
 **Essential Permissions:**
-- ✅ `applications.commands` - Use commands
+- ⚪ `applications.commands` - Optional OAuth scope; select this only if Luna has slash commands such as `/help` or `/ping`
 - ✅ `messages.read` - Read messages to respond
 - ✅ `messages.send` - Send replies
 - ✅ `message_history.read` - Read context from messages
@@ -58,7 +63,7 @@ Because Luna reads message content to detect `luna ...`, you must enable the Mes
 2. Under **Scopes**, select:
    - ✅ `bot`
 3. Under **Permissions**, select:
-   - ✅ applications.commands
+   - ⚪ applications.commands (optional; Luna currently uses `luna ...` message commands)
    - ✅ messages.read
    - ✅ messages.send
    - ✅ message_history.read
@@ -98,9 +103,21 @@ Using **Groq API** (recommended for free tier):
 set LUNA_API_URL=https://api.groq.com/openai/v1/chat/completions
 set LUNA_API_KEY=YOUR_GROQ_API_KEY
 set LUNA_MODEL=openai/gpt-oss-120b
+set LUNA_FALLBACK_MODEL=openai/gpt-oss-20b
 ```
 
-If you already have a Groq key and another compatible model, use that instead. Luna will also automatically retry with `openai/gpt-oss-120b` if a configured model is unavailable.
+Optional separate game-content models:
+
+```bash
+set LUNA_CHERRYWORDS_MODEL=llama-3.1-8b-instant
+set LUNA_CHERRYWORDS_FALLBACK_MODEL=openai/gpt-oss-120b
+set LUNA_CHERRYGARDEN_MODEL=llama-3.1-8b-instant
+set LUNA_CHERRYGARDEN_FALLBACK_MODEL=openai/gpt-oss-120b
+```
+
+If the primary model is unavailable or rate-limited, Luna automatically tries `LUNA_FALLBACK_MODEL`. Both model names must be valid for your Groq organization.
+
+CherryWords and CherryGarden use `llama-3.1-8b-instant` first and fall back to `openai/gpt-oss-120b` for game-content generation. CherryWords requests fresh prompts in small validated JSON batches, and CherryGarden generates its ten questions in smaller batches too. Override these with `LUNA_CHERRYWORDS_MODEL`, `LUNA_CHERRYWORDS_FALLBACK_MODEL`, `LUNA_CHERRYGARDEN_MODEL`, and `LUNA_CHERRYGARDEN_FALLBACK_MODEL` if needed. Static CherryWords emergency prompts are disabled by default; enable `LUNA_CHERRYWORDS_ALLOW_STATIC_FALLBACK=1` only when you explicitly accept non-AI prompts.
 
 Or use any compatible OpenAI-style LLM provider.
 
@@ -134,7 +151,7 @@ python main.py --discord --token YOUR_DISCORD_TOKEN
 
 ## Discord commands
 
-Just type `luna` followed by a command. No special prefix needed!
+Just type `luna` followed by a command or natural-language question. No special prefix needed!
 
 ### Available Commands
 
@@ -145,16 +162,16 @@ Just type `luna` followed by a command. No special prefix needed!
 - `luna fact` - Share an interesting fact
 - `luna search <topic>` - Search for information on any topic
 - `luna story <theme>` - Generate a short story based on a theme
-- `luna chat <message>` - Have a general conversation
+- `luna <message>` - Talk with Luna naturally, for example `luna how to study`
 - `luna game` - Show every game and the multiplayer flow
-- `luna wordbloom <level>` (aliases: `tea`, `word`) - Guess a word and learn its meaning
 - `luna wordquiz <level>` (alias: `trio`) - Vocabulary quiz with answer explanations
-- `luna riddle <level>` - Solve wordplay and learn how the answer works
-- `luna escape <level>` - Play the Moonlit Library learning puzzle
+- `luna riddle` - Play one fresh 10-riddle multiplayer round (`2` difficult, `3` moderate, `5` easy)
+- `luna jumbled` - Play one fresh 10-word jumbled-word round (`messed` and `jumble` remain aliases)
+- `luna memo` - Play one 10-sequence memory round (`memory` remains an alias)
+- `luna escape <level>` - Play a rotating learning puzzle room (AI-generated when available)
 - `luna trivia <level>` - Create a fastest-answer learning-trivia lobby
-- `luna quiz <level>` - Create an explained-answer multiplayer quiz lobby
+- `luna wordle` - Play a six-row Wordle board with green/yellow/black feedback
 - `luna storyteller <level>` - Practise collaborative writing
-- `luna wyr <level>` - Would You Rather: vote A/B and discuss opinions; there is no correct answer
 - `luna cherrygarden <level>` - Ten mixed grammar rounds with personalized explanations
 - `luna cherrywords <level>` - Create a vocabulary battle lobby
 - `luna codenames solo <level>` - Play against Luna on a pastel 5x4 word board
@@ -162,18 +179,19 @@ Just type `luna` followed by a command. No special prefix needed!
 - `luna join` - Join the open lobby in the current channel
 - `luna begin` - Start a lobby (host only)
 - `luna score` - Show current scores
+- `luna hint` - Take one of the two shared riddle hints
 - `luna stop` - Stop the current lobby/game (host only)
 - `luna spell <word>` - Help with spelling and pronunciation
 
-Every game defaults to 🌱. Use one flower for `<level>`:
+Games that accept a `<level>` default to 🌱. Use one flower for `<level>`:
 
 - 🌱 Easy
 - 🌼 Moderate
 - 🌺 Difficult
 
-For example: `luna quiz 🌼`, `luna cherrygarden 🌺`, or `luna codenames 🌼`. Multiplayer Codenames needs at least four players; the first two lobby members become Team A and Team B spymasters.
+For example: `luna trivia 🌼`, `luna cherrygarden 🌺`, or `luna codenames 🌼`. Multiplayer Codenames needs at least four players; the first two lobby members become Team A and Team B spymasters.
 
-Use `luna help games` for the complete list, or `luna help <game>` for players, rules, an example, and the learning goal—for example, `luna help wyr` or `luna help escape`.
+Use `luna help games` for the complete list, or `luna help <game>` for players, rules, an example, and the learning goal—for example, `luna help wordle` or `luna help escape`.
 
 ### Codenames flow
 
@@ -209,12 +227,14 @@ luna joke
 luna fact
 luna search What is photosynthesis?
 luna story A magical forest
-luna chat What does Luna do?
-luna wordbloom
+luna how to study
 luna trivia
 luna join
 luna begin
 luna riddle
+luna jumbled
+luna memo
+luna hint
 luna spell beautiful
 ```
 
@@ -222,7 +242,7 @@ luna spell beautiful
 
 - 🌸 **Cherry Blossom Reactions** - Luna reacts to every non-bot message with her favourite cherry blossom
 - 🤍 **Warm Personality** - Luna uses white hearts in her gentle, cheerful replies without flooding messages
-- 🎮 **Eleven Learning Games** - Word games, riddles, an escape room, quizzes, voting, storytelling, grammar, word battles, and pastel Codenames
+- 🎮 **Eleven Learning Games** - Word games, riddles, jumbles, memory, an escape room, trivia, voting, storytelling, grammar, word battles, and pastel Codenames
 - 📖 **Dictionary** - Uses free DictionaryAPI.dev for word meanings
 - 💬 **Chat-style fallback** - Ask Luna `luna what is whimsy` or `luna how are you` and she will answer even when no exact command matches
 - 🤖 **LLM Integration** - Supports GPT-OSS 120B and Llama 3.3 70B
@@ -230,7 +250,9 @@ luna spell beautiful
 
 ### Fresh game content
 
-When `LUNA_API_KEY` is configured, Luna asks the language model for new validated WordBloom, Word Quiz, Trivia, Quiz, Riddle, Escape Room, Storyteller, Would You Rather, and CherryGarden content. Invalid AI output is discarded automatically. Curated content uses a shuffle-bag rotation, so an item is not repeated until its pool has been exhausted.
+Luna asks the language model for new validated Word Quiz, mixed-category Trivia, Riddle, Jumbled, Escape Room, Storyteller, Would You Rather, CherryGarden, CherryWords, and Codenames content. Trivia combines geography, history, general knowledge, countries, world facts, and basic everyday facts. Invalid or repeated AI output is discarded automatically. Escape rotates through six local learning rooms when AI is unavailable or repeats. Each Riddle and Jumbled game loads exactly 10 fresh items: 2 Difficult, 3 Moderate, and 5 Easy. Jumbled gives every challenge a 30-second answer window. CherryWords requests 30 fresh AI sequences in three smaller batches, and CherryGarden requests its ten mixed grammar questions in smaller batches; both refuse to start when they cannot obtain enough validated AI content. A static CherryWords emergency bank exists only when `LUNA_CHERRYWORDS_ALLOW_STATIC_FALLBACK=1`.
+
+Memo plays exactly 10 five-emoji sequences with the same 2 Difficult, 3 Moderate, and 5 Easy distribution. Each sequence hides after 7 seconds on Easy, 5 seconds on Moderate, or 3 seconds on Difficult. Players react to the emoji choice for positions 1 through 5 in order.
 
 Escape Room now rotates between multiple interactive locations. Use `look`, `search`, `take <item>`, `inspect <item>`, `inventory`, `hint`, and `solve <answer>`.
 
@@ -249,7 +271,7 @@ If you set `LUNA_API_URL` and `LUNA_API_KEY`, these commands become available:
 - `luna fact` - Shares interesting facts
 - `luna search <topic>` - Searches and provides info
 - `luna story <theme>` - Generates short stories
-- `luna chat <message>` - General conversation
+- `luna <message>` - General conversation, such as `luna how to study`
 - `luna spell <word>` - Helps with spelling and pronunciation
 
 ## Verify Luna is working
@@ -273,7 +295,6 @@ python main.py --discord
 ```
 luna help                    (shows all commands)
 luna meaning serendipity     (looks up word meaning)
-luna wordbloom               (starts a definition guessing game)
 luna wordquiz                (starts a local multiple-choice quiz)
 ```
 
@@ -289,6 +310,3 @@ luna quote
 luna joke
 luna search What is photosynthesis?
 ```
-=======
-# Luna
->>>>>>> 86f27aec1b8fe7e4cd35fee4fba44f931adff082

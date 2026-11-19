@@ -70,3 +70,36 @@ def format_score_board(scores: dict) -> str:
         lines.append(f"{rank}. <@{user_id}>: {score}")
     
     return "\n".join(lines)
+
+
+def format_winner_line(
+    scores: dict[int, int],
+    winner_ids: list[int] | None = None,
+    reason: str = "",
+) -> str:
+    """Return a compact winner announcement for scored games.
+
+    ``winner_ids`` is useful for elimination games where the survivor wins even
+    when another player has a higher accumulated score.
+    """
+    if not scores:
+        return "No winner this time."
+
+    if winner_ids is None:
+        winning_score = max(scores.values(), default=0)
+        if winning_score <= 0:
+            return "No winner this time."
+        winner_ids = [
+            user_id for user_id, score in scores.items() if score == winning_score
+        ]
+    else:
+        winner_ids = [user_id for user_id in winner_ids if user_id in scores]
+        if not winner_ids:
+            return "No winner this time."
+        winning_score = max(scores.get(user_id, 0) for user_id in winner_ids)
+
+    mentions = " ".join(f"<@{user_id}>" for user_id in winner_ids)
+    label = "Winner" if len(winner_ids) == 1 else "Winners"
+    suffix = f" — {reason}" if reason else ""
+    unit = "point" if winning_score == 1 else "points"
+    return f"🏆 {label}: {mentions} with **{winning_score}** {unit}{suffix}."

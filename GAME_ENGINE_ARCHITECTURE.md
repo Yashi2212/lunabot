@@ -30,15 +30,14 @@ lunabot/
 │   ├── tea_challenge.py    # Single-player word guess
 │   ├── trivia.py           # Multiplayer fast Q&A
 │   ├── quiz.py             # Multiplayer independent scoring
-│   ├── riddle.py           # Single-player riddle
+│   ├── riddle.py           # Multiplayer riddle race
 │   ├── escape.py           # Single-player exploration
 │   ├── storyteller.py      # Turn-based story
 │   ├── would_you_rather.py # Voting game
 │   └── __init__.py
 ├── commands/               # Discord commands (stub)
 │   └── __init__.py
-├── data/                   # Static game data
-│   ├── riddles.json
+├── data/                   # Empty legacy schemas; game content is AI-generated at runtime
 │   ├── trivia.json
 │   ├── quiz_questions.json
 │   └── would_you_rather.json
@@ -206,13 +205,13 @@ Player B: C (wrong) → +0
 
 ### 4. **RiddleGame** (`games/riddle.py`)
 
-**Type:** Single-player  
-**Rules:** Solve one riddle, get points if correct
+**Type:** Multiplayer
+**Rules:** Everyone can guess the same riddle across one fixed ten-riddle round. The round contains 2 Difficult, 3 Moderate, and 5 Easy riddles; each player's attempts follow the current riddle's level. The highest score wins, and a solo player wins automatically.
 
 ```
 Bot: "I speak without a mouth..."
-Player: echo
-Bot: "✅ Correct!"
+Player A: echo
+Bot: "✅ Correct! +1 — explanation... Next riddle: ..."
 ```
 
 ---

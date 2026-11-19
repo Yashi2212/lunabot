@@ -4,7 +4,7 @@ import discord
 
 from ..core.base_game import BaseGame
 from ..sessions.game_session import GameSession
-from ..utils.text_utils import format_score_board
+from ..utils.text_utils import format_score_board, format_winner_line
 from .difficulty import level_label, normalize_difficulty
 
 
@@ -37,7 +37,11 @@ class QuizGame(BaseGame):
         questions = session.state["questions"]
         if index >= len(questions):
             session.state["finished"] = True
-            await channel.send(f"🏆 **Quiz complete!**\n{format_score_board(session.score)}")
+            await channel.send(
+                f"🏆 **Quiz complete!**\n"
+                f"{format_winner_line(session.score)}\n"
+                f"{format_score_board(session.score)}"
+            )
             return
         question = questions[index]
         session.state["current_question_data"] = question

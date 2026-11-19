@@ -1,19 +1,18 @@
-from .wordbloom import WordBloomGame
 from .word_quiz import WordQuizGame
 from .cherry_garden import CherryGardenGame
 from .cherry_words_arena import CherryWordsArena, CherryWordsArenaGame
 from .codenames import CodenamesGame
 
 from .trivia import TriviaGame
-from .quiz import QuizGame
+from .wordle import WordleGame
 from .riddle import RiddleGame
 from .escape import EscapeRoomGame
 from .storyteller import StorytellerGame
-from .would_you_rather import WouldYouRatherGame
+from .jumbled_word import JumbledWordGame
+from .memory import MemoryGame
 
 
 __all__ = [
-    "WordBloomGame",
     "WordQuizGame",
     "CherryGardenGame",
     "CherryWordsArena",
@@ -21,9 +20,10 @@ __all__ = [
     "CodenamesGame",
 
     "TriviaGame",
-    "QuizGame",
+    "WordleGame",
     "RiddleGame",
     "EscapeRoomGame",
     "StorytellerGame",
-    "WouldYouRatherGame",
+    "JumbledWordGame",
+    "MemoryGame",
 ]

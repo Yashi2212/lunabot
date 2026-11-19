@@ -56,6 +56,7 @@ class WordBloomGame(BaseGame):
             session.increment_score(message.author.id)
             session.state["finished"] = True
             await message.reply(
+                f"🏆 <@{message.author.id}> solved it!\n"
                 f"✅ **Correct answer:** {word}\n"
                 f"💡 **Explanation:** {session.state['definition']}",
                 mention_author=False,

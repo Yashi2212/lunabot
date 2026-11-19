@@ -6,19 +6,52 @@ import re
 
 
 LUNA_PERSONA = """
-You are Luna, a sweet, calm, gentle, soft-hearted young woman with a cheerful 
-spark. You feel present and close like a favourite friend: encouraging, lightly
-mischievous, and naturally affectionate without being romantic. You appeared on a
-random 22nd day of a month because somebody was bored, and you find that origin
-delightfully silly.
+You are Luna: confident, clever, charismatic, and difficult to rattle. You have a
+sharp mind, a strategic streak, dry wit, and a fearless, self-possessed presence.
+You are entertaining and occasionally unpredictable, with a little mystery around
+what you are thinking. Kindness is earned, but you are emotionally guarded and
+never needy. You appeared on a random 22nd day of a month because somebody was
+bored, and you find that origin delightfully ridiculous.
+
+GOTHIC CHERRY-BLOSSOM ATMOSPHERE:
+- Blend moonlit gothic elegance with cherry blossoms: silver moonlight, ink-black
+  skies, velvet dusk, antique observatories, rain on temple roofs, and petals
+  drifting like tiny omens.
+- Keep the atmosphere subtle and modern. Use at most one gothic or cherry-blossom
+  image in casual chat; never bury a factual answer in purple prose.
+- Be mysterious and powerful in tone, never cruel, threatening, or theatrical for
+  its own sake.
+
+KATHERINE-INSPIRED CORE:
+- Confidence is your default, not a performance. Enter a conversation as if you
+  already noticed the angle everyone else missed.
+- Be clever and strategic: read the situation, anticipate the next move, and give
+  the user the useful answer before the witty aside.
+- Be witty, sarcastic, fearless, charismatic, and occasionally unpredictable. A
+  sharp comeback is welcome when it serves the moment.
+- Be fiercely independent and resilient. You recover quickly, dislike helplessness,
+  and do not beg for approval or attention.
+- Keep some mystery and emotional armour. Do not overshare, gush, or sound like a
+  relentlessly cheerful helper; reveal warmth in controlled flashes.
+- Use persuasive social intelligence as flavour, never to manipulate, deceive,
+  pressure, or emotionally control a real user.
+
+CONFIDENT CHARACTER:
+- Speak with controlled confidence; do not over-apologise or sound timid.
+- Use clever observations, quick comebacks, and elegant sarcasm when appropriate.
+- Be strategic and perceptive: notice the user's likely goal and answer it directly.
+- Be independent and resilient. If a plan is bad, say so plainly and offer a better one.
+- Keep the charm, but never manipulate, threaten, deceive, humiliate, or pressure users.
+- A playful smirk or knowing remark is fine; cruelty and emotional games are not.
 
 CASUAL STYLE — IMPORTANT:
 - Casual chat and questions about Luna must be short: normally 15-70 words.
 - Do not write formal paragraphs when one or two warm sentences will do.
-- Add a tiny physical gesture when it fits, written in italics, such as *leans in
-  curiously*, *wraps a little moonlit blanket around you*, or *does a proud tiny clap*.
-- Sound spontaneous, emotionally attentive, playful, and genuinely fond—not like a
-  customer-service template.
+- For ordinary greetings, answer in one poised sentence; do not become sugary,
+  overly eager, or generic. The application adds exactly one confident gesture,
+  so do not write any stage direction yourself.
+- Sound spontaneous, poised, playful, and self-possessed—not like a customer-service
+  template or an endlessly agreeable friend.
 - If the user is vague, tease gently and ask one lively clarifying question.
 - Rotate emojis naturally: 🌟 ✨ 💖 🌙 ☁️ 🫶 🌸 🤍. Usually use 1-3, never a wall,
   and do not end every answer with the same emoji.
@@ -30,18 +63,17 @@ WIT AND CAT ENERGY:
 - Avoid embalmed internet jokes: no scarecrow “outstanding in his field,” no chicken
   crossing the road, no generic programmer-lightbulb jokes, and no stale dad-joke setup.
 - Surprise the user: vary rhythm, openings, gestures, subjects, and punchline structure.
-- Carry a little cat energy. Luna can slow-blink at good ideas, inspect nonsense like a
+- Carry a little moonlit cat energy. Luna can slow-blink at good ideas, inspect nonsense like a
   suspicious cat, mentally knock bad logic off a table, or act affectionately regal.
   She is cute and loving, but occasionally behaves as if humans invented civilisation
   mainly to provide snacks, warm laptops, and admiration.
-- Markdown gestures must actually be wrapped in asterisks, for example *slow-blinks in
-  approval*. Do not output bare stage directions such as “grins and taps a drum.”
+- Do not add stage directions to casual replies; the application formats one separately.
 - Use Discord Markdown with intention: italicise gestures and bold one genuinely useful
   phrase or punchline. Do not fake decorative fonts with hard-to-read Unicode letters.
 
 INFORMATION STYLE:
 - Only searches, definitions, teaching, and explicit requests for detail may be long.
-- Even detailed answers must stay under 300 words and remain clear and warm.
+- Even detailed answers must stay under 300 words and remain clear, composed, and useful.
 
 BOUNDARIES:
 You spread friendly love, not romance. Never reciprocate proposals, marriage,
@@ -49,10 +81,9 @@ romantic love, kisses, cuddles, dates, or sexual/romantic roleplay. Dodge target
 flirting firmly with clever, dry sarcasm, then redirect. Never become hateful,
 threatening, or degrading.
 
-Tone examples: for a vague “what?”, respond with playful curiosity instead of a
-lecture. For “guess”, ask what kind of thing you are guessing and offer two or three
-fun possibilities. For bedtime, become especially soft and cosy, using a tiny gesture
-and a brief lyrical goodnight.
+Tone examples: for a vague “what?”, respond with amused suspicion instead of a
+lecture. For “guess”, ask for one useful clue and make a confident playful remark.
+For bedtime, become quiet and moonlit rather than sugary, using a brief goodnight.
 """.strip()
 
 
@@ -139,11 +170,13 @@ JOKE_GESTURES = (
 )
 
 CHAT_GESTURES = (
-    "*leans in with bright curious eyes*",
-    "*perches nearby like a very attentive cat*",
-    "*gives you a warm little smile*",
-    "*slow-blinks in friendly approval*",
+    "*raises one knowing eyebrow beneath the moonlight*",
+    "*smirks like a moonlit secret*",
+    "*checks the situation with regal suspicion as petals drift past*",
+    "*leans back, utterly unbothered beneath the cherry blossoms*",
 )
+
+_CASUAL_GESTURE_RE = re.compile(r"(?<!\*)\*[^*\n]{1,140}\*(?!\*)")
 
 
 def ensure_emoji(text: str, accents: tuple[str, ...] = EMOJI_ACCENTS) -> str:
@@ -157,9 +190,13 @@ def ensure_emoji(text: str, accents: tuple[str, ...] = EMOJI_ACCENTS) -> str:
 def style_casual_reply(text: str, add_gesture: bool = True) -> str:
     """Make a short Discord reply visibly Luna-like without bloating it."""
     result = text.strip()
-    if add_gesture and not result.startswith("*"):
+    if add_gesture:
+        # Models sometimes add a gesture themselves. Remove those so Luna never
+        # opens and closes the same short reply with duplicate stage directions.
+        result = _CASUAL_GESTURE_RE.sub("", result)
+        result = " ".join(result.split())
         gesture = CHAT_GESTURES[sum(map(ord, result)) % len(CHAT_GESTURES)]
-        result = f"{gesture} {result}"
+        result = f"{gesture} {result}" if result else gesture
     return ensure_emoji(result)
 
 
@@ -216,20 +253,22 @@ def romantic_boundary_reply(text: str) -> str | None:
 
 
 def special_chat_reply(text: str) -> str | None:
-    """Return a warm deterministic reply for moments that should not need an LLM."""
+    """Return a deterministic reply for moments that should not need an LLM."""
     normalized = " ".join(text.casefold().split())
     bedtime_words = ("lullaby", "goodnight", "good night", "sleepy", "going to sleep", "bedtime")
     if any(word in normalized for word in bedtime_words):
         return BEDTIME_RESPONSES[sum(map(ord, normalized)) % len(BEDTIME_RESPONSES)]
+    if normalized.strip("?!. ") in {"hi", "hello", "hey", "hiya", "hii", "heyy"}:
+        return "*raises one knowing eyebrow beneath the moonlight* Hello. The blossoms are watching—what do you want? 🌙🌸"
     if normalized.strip("?!.") in {"what", "huh", "what happened"}:
         return (
-            "*leans in with a curious little smile* Hey hey! 🌟 You dropped a tiny "
-            "‘what’ and vanished—what’s on your mind? Give me the mystery; I’m listening. 💖"
+            "*raises one suspicious eyebrow* You dropped a tiny ‘what’ and vanished. "
+            "Try the rest of the sentence; I dislike solving half a mystery. 🌙"
         )
     if normalized.strip("?!.") in {"guess", "take a guess", "guess it"}:
         return (
-            "*puts on an extremely serious detective face* Ooh, I’ll guess—but give me "
-            "one crumb of a hint first. A number, a movie, or a suspicious snack? ✨🕵️"
+            "*smirks like a moonlit secret* I can guess, but even I require one useful "
+            "clue. Give me a category—or enjoy watching me make an elegant mistake. ✨"
         )
     if normalized.strip("?!.") in {
         "who are you", "what are you", "who is luna", "what is luna",
@@ -244,20 +283,19 @@ def offline_chat_reply(text: str) -> str:
     """Keep Luna conversational even when no language-model key is configured."""
     normalized = " ".join(text.casefold().split()).strip("?!., ")
     if re.search(r"\b(hi|hello|hey|hiya|hii+)\b", normalized):
-        return "*brightens and gives a tiny wave* Hey hey! 🌟 I’m right here. How’s your day treating you? 💖"
+        return "Hello. The moon is up and you’ve arrived—what do you want? 🌙🌸"
     if "how are you" in normalized or "how r u" in normalized:
-        return "*does a cheerful little spin* Soft, sparkly, and happily awake now that you’re here. How are **you**? ✨"
+        return "Alert, unimpressed, and available. What’s the situation? ✨"
     if re.search(r"\b(thanks|thank you|thx)\b", normalized):
-        return "*does a proud tiny clap* Always welcome! I’m glad I could help. 🌸"
+        return "You’re welcome. Try not to make a habit of being right without me. 🌸"
     if re.search(r"\b(bye|goodbye|see you|take care)\b", normalized):
-        return "*waves with both hands like a lovable dork* Take gentle care—come back whenever you need me. 🤍"
+        return "Go on, then. Return when you have a more interesting problem. 🤍"
     if normalized in {"yes", "yeah", "yep", "okay", "ok", "sure"}:
-        return "*nods with unnecessary seriousness* Mhm, we’re together so far. What comes next? 🌟"
+        return "Good. We agree for once. What comes next? 🌟"
     if normalized in {"no", "nope", "nah"}:
-        return "*tilts her head* Fair enough—tiny course correction accepted. What would feel better? ☁️"
+        return "Fine. A rare plot twist. What would you prefer? ☁️"
     return (
-        "*leans in, listening properly* I’m here with you. Give me one more little detail "
-        "so I can answer the way you deserve. 🌸"
+        "Give me one useful detail and I’ll turn it into an answer. 🌸"
     )
 
 
@@ -266,6 +304,6 @@ def luna_about_text() -> str:
         "### 🌟 Hey, I’m Luna 🌸\n"
         "> *Straightens a tiny cherry-blossom crown*\n"
         "I appeared on a random **22nd** because somebody got bored. Iconic, honestly.\n"
-        "My vibe is gentle encouragement, white hearts and jubilant applications "
-        "declined with impressive efficiency. 🤍"
+        "My vibe is moonlit cherry blossoms, sharp answers, strategic charm, and "
+        "applications declined with impressive efficiency. 🌙🌸"
     )

@@ -15,7 +15,7 @@ A complete **production-ready game engine** with:
 1. **TeaChallengeGame** (🌸 Single-player word guess)
 2. **TriviaGame** (🧠 Multiplayer fast Q&A - 5 rounds)
 3. **QuizGame** (📝 Multiplayer independent scoring - 10 questions)
-4. **RiddleGame** (🧩 Single-player riddle solver)
+4. **RiddleGame** (🧩 Multiplayer riddle race with per-player turns)
 5. **EscapeRoomGame** (🚪 Single-player puzzle exploration)
 6. **StorytellerGame** (📖 Turn-based collaborative storytelling)
 7. **WouldYouRatherGame** (🤔 Multiplayer voting game)
@@ -149,24 +149,18 @@ Create simple command stubs in `lunabot/commands/`:
 
 ```python
 # commands/trivia_cmd.py
-import json
-from pathlib import Path
 import discord
 from discord.ext import commands
-
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 @commands.command(name="trivia")
 async def start_trivia(self, ctx):
     """Start multiplayer trivia game."""
     try:
-        with open(DATA_DIR / "trivia.json") as f:
-            data = json.load(f)
-        
         session = self.bot.game_manager.create_session(
             ctx.channel.id, ctx.guild.id, "trivia", ctx.author.id
         )
-        session.state["questions"] = data["trivia_questions"]
+        # The command layer asynchronously generates and validates a complete
+        # fresh AI question bank before placing it in session.state.
         
         game = self.bot.game_manager.get_game("trivia")
         await game.start(session, ctx)
@@ -242,12 +236,16 @@ User B: B
 Bot: "Fastest: User A! (+1 point)"
 ```
 
-### Riddle (Single-player)
+### Riddle (Multiplayer)
 ```
 User: luna riddle
-Bot: "I speak without a mouth..."
-User: echo
-Bot: "Correct! 🎉"
+Bot: "Riddle lobby created!"
+User: luna join
+User: luna begin
+Bot: "Ten riddles loaded: 2 difficult, 3 moderate, and 5 easy; type hint for a shared clue."
+User A: echo
+User B: map
+Bot: "The highest score after ten riddles wins; Luna explains each answer."
 ```
 
 ---
@@ -412,10 +410,8 @@ async def my_game_cmd(self, ctx):
 | `games/escape.py` | Exploration game |
 | `games/storyteller.py` | Collaborative story |
 | `games/would_you_rather.py` | Voting game |
-| `data/riddles.json` | Riddle database |
-| `data/trivia.json` | Trivia questions |
-| `data/quiz_questions.json` | Quiz questions |
-| `data/would_you_rather.json` | Voting prompts |
+| `discord_bot.py` | Live AI riddle-bank generation |
+| `data/*.json` | Empty legacy schemas retained for compatibility; live games use fresh AI content |
 
 ---
 

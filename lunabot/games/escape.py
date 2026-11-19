@@ -14,6 +14,8 @@ from ..sessions.game_session import GameSession
 from .difficulty import level_label, normalize_difficulty
 
 
+# Keep a local bank so Escape remains playable when the model is unavailable and
+# so a deterministic model response cannot make every new room identical.
 ESCAPE_PUZZLES = [
     {
         "title": "The Moonlit Library",
@@ -169,10 +171,14 @@ class EscapeRoomGame(BaseGame):
     async def start(self, session: GameSession, ctx) -> None:
         difficulty = normalize_difficulty(session.state.get("difficulty"))
         supplied = session.state.get("puzzle")
-        if valid_escape_puzzle(supplied):
-            puzzle = deepcopy(supplied)
-        else:
-            puzzle = deepcopy(content_rotation.take(f"escape:{difficulty}", ESCAPE_PUZZLES)[0])
+        if not valid_escape_puzzle(supplied):
+            session.state["finished"] = True
+            await ctx.reply(
+                "🌙 Escape Room needs a fresh AI puzzle and could not start.",
+                mention_author=False,
+            )
+            return
+        puzzle = deepcopy(supplied)
         attempts = {"easy": 4, "medium": 3, "hard": 2}[difficulty]
         item_names = list(puzzle["items"])
         random.shuffle(item_names)
@@ -267,6 +273,7 @@ class EscapeRoomGame(BaseGame):
                 session.increment_score(message.author.id)
                 session.state["finished"] = True
                 await message.reply(
+                    f"🏆 <@{message.author.id}> escaped!\n"
                     f"🎉 {puzzle['success']}\n**Correct answer:** {puzzle['answer']}\n"
                     f"💡 **Explanation:** {puzzle['learning_note']}",
                     mention_author=False,
